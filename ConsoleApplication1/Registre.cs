@@ -114,5 +114,11 @@ namespace ListingSoftware
                 {
                     Console.WriteLine((i + 1) + " - " + subkeys[i] + " - " + regK.GetValue(subkeys[i]));
                 }*/
+        public String readValue(PathValue p) 
+        { 
+        RegistryKey regKey = myRegKey.OpenSubKey(p.path);
+        String result = (String)regKey.GetValue(p.value);
+        return result;
+        }
     }
 }

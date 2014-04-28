@@ -17,7 +17,6 @@ namespace ListingSoftware
 
         static void Main(string[] args)
         {
-            Ways.addNewWay("a", "b");
             Ways wat = new Ways();
             SoftList softList = new SoftList();
             try

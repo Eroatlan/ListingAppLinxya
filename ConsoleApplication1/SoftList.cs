@@ -41,6 +41,23 @@ namespace ListingSoftware
         }
 
         public List<Software> getList()
-        { return this.list; }
+        {
+            return this.list;
+        }
+        public void firstTurn()
+        {
+            Registre r= new Registre();
+            Ways w = new Ways();
+
+            Dictionary <String, PathValue> d = w.getDico();
+
+            foreach(Software s in list)
+            {
+                if (d.ContainsKey(s.getName()))
+                {
+                    s.addKey(r.readValue(d[s.getName()]), 100);
+                }
+            }
+        }
     }
 }

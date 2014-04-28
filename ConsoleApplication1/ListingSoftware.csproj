@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comp.cs" />
+    <Compile Include="PathValue.cs" />
     <Compile Include="SoftList.cs" />
     <Compile Include="Software.cs" />
     <Compile Include="Registre.cs" />
