@@ -86,7 +86,7 @@ namespace ListingSoftware
 
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                    Console.ReadLine();
+                   // Console.ReadLine();
                     Console.WriteLine((i + 1) + " - " + subkeys[i]);
                     if ("Classes-Shit".Contains(subkeys[i]))
                     {

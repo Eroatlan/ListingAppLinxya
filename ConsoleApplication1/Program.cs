@@ -11,12 +11,14 @@ using System.Collections;
 
 namespace ListingSoftware
 {
-    class Program
+    class Programs
     {
         private static Registre reg;
 
         static void Main(string[] args)
         {
+            Ways.addNewWay("a", "b");
+            Ways wat = new Ways();
             SoftList softList = new SoftList();
             try
             {
