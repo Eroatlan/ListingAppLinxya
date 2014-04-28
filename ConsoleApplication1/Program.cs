@@ -79,9 +79,9 @@ namespace ListingSoftware
                 MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
             }
 
-            reg = new Registre();
-            reg.LectureReg();
-            Console.In.ReadLine();
+           // reg = new Registre();
+           // reg.LectureReg();
+           // Console.In.ReadLine();
         }
         
     }
