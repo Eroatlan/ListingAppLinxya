@@ -17,7 +17,7 @@ namespace ListingSoftware
 
         static void Main(string[] args)
         {
-            List<Software> softList = new List<Software>();
+            SoftList softList = new SoftList();
             try
             {
                 ManagementObjectSearcher searcher =
@@ -59,19 +59,18 @@ namespace ListingSoftware
                     catch (Exception){}
                     
                     Console.WriteLine(i);
-                    softList.Add(new Software(idN, name, vend, instLoc, prodID, version));
-
-                    
-
-                    //Console.In.ReadLine();
+                    softList.addSoft(new Software(idN, name, vend, instLoc, prodID, version));
                 }
                 
-                foreach (Software soft in softList)
+                foreach (Software soft in softList.getList())
                 {
                     Console.WriteLine(soft.toString());
-                    Console.In.ReadLine();
+                    //Console.In.ReadLine();
                 }
-                
+
+                Console.In.ReadLine();
+                Console.WriteLine(softList.match("Serial Key Maker"));
+                Console.In.ReadLine();
             }
             catch (ManagementException e)
             {

@@ -10,7 +10,6 @@ namespace ListingSoftware
 {
     class Registre
     {
-        RegistryKey regK = Registry.CurrentUser;
         RegistryKey myRegKey = Registry.LocalMachine;
 
         public Registre()
@@ -27,6 +26,7 @@ namespace ListingSoftware
             }
         }
 
+        //Fonction initiale pour la lecture de registre (sans paramètre) appelle la version surchargé pour la suite.
         public void LectureReg ()
         {
             try 
@@ -47,9 +47,8 @@ namespace ListingSoftware
 
             try
             {
-
-                //Block d'affichage simple
                 
+                //Block d'affichage simple
                 String[] subkeys = myRegKey.GetSubKeyNames();
 
                 for (int i = 0; i < subkeys.Length; i++)
@@ -68,12 +67,11 @@ namespace ListingSoftware
             }
         }
 
-
+        //Fonction surchargée de lecture de registre, lit jusqu'à trouver un noeud correspondant à un programme
         public void LectureReg(String regPath)
         {
             try
             {
-                
                 myRegKey = myRegKey.OpenSubKey(regPath);
                 RegistryKey temp = myRegKey;
 
@@ -91,16 +89,22 @@ namespace ListingSoftware
                     Console.ReadLine();
                     Console.WriteLine((i + 1) + " - " + subkeys[i]);
                     if ("Classes-Shit".Contains(subkeys[i]))
-                    { }
+                    {
+                    }
                     else
                     {
                         LectureReg(subkeys[i]);
                         myRegKey = temp;
                     }
                 }
+            }
+            catch (NullReferenceException err)
+            {
+                Console.WriteLine(err);
+            }
+        }
 
-
-                /*
+        /*
                 //lire les valeurs d'un chemin particulier - Recover Keys
                 regK = myRegKey.OpenSubKey("Recover Keys");
                 Console.WriteLine(regK);
@@ -110,12 +114,5 @@ namespace ListingSoftware
                 {
                     Console.WriteLine((i + 1) + " - " + subkeys[i] + " - " + regK.GetValue(subkeys[i]));
                 }*/
-
-            }
-            catch (NullReferenceException err)
-            {
-                Console.WriteLine(err);
-            }
-        }
     }
 }

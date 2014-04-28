@@ -13,7 +13,34 @@ namespace ListingSoftware
         //implementation of List constructor
         public SoftList() : base()
         {
-            
+            this.list = new List<Software>();
         }
+
+        //function to tell if a value exists with the given name in the list
+        public bool match (String name)
+        {
+            foreach (Software soft in this.list)
+            {
+                try
+                {
+                    if (soft.getName().Equals(name))
+                    {
+                        return true;
+                    }
+                }
+                catch(Exception)
+                {
+                }
+            }
+            return false;
+        }
+
+        public void addSoft (Software soft)
+        {
+            this.list.Add(soft);
+        }
+
+        public List<Software> getList()
+        { return this.list; }
     }
 }
