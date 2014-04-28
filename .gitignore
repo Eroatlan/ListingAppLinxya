@@ -50,6 +50,10 @@ build/
 [Bb]in/
 [Oo]bj/
 
+=======
+# Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
+!packages/*/build/
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -126,6 +130,7 @@ publish/
 
 # Publish Web Output
 *.Publish.xml
+<<<<<<< HEAD
 *.pubxml
 
 # NuGet Packages Directory
@@ -168,6 +173,12 @@ App_Data/*.ldf
 #############
 ## Windows detritus
 #############
+
+#LightSwitch generated files
+GeneratedArtifacts/
+_Pvt_Extensions/
+ModelManifest.xml
+
 
 # Windows image file caches
 Thumbs.db
@@ -213,3 +224,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Mac desktop service store files
+.DS_Store
