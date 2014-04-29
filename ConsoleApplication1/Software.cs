@@ -56,5 +56,21 @@ namespace ListingSoftware
             ret = "Entry ==> Name : " + this.name; //+ " - Vendor : " + this.vendor;
             return ret;
         }
+        public String toStringKey()
+        {
+            String ret;
+            if (this.getKeys().Count > 0)
+            {
+                String sKeys = " ";
+                List<WeightedKey> key = this.getKeys();
+                foreach (WeightedKey k in key)
+                {
+                    sKeys = sKeys + " => " + k.getValue() + " avec poids: " + k.getWeight();
+                }
+                ret = "Entry ==> Name : " + this.name + " - Vendor : " + this.vendor + " - Keys : " + sKeys;
+                return ret;
+            }
+            else return null;
+        }
     }
 }

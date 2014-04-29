@@ -20,7 +20,6 @@ namespace ListingSoftware
                 String[] d = s.Split(';');
                 PathValue p = new PathValue(d[1], d[2]);
                 dico.Add(d[0], p);
-                Console.WriteLine(d[1]);
             }
 
         }
