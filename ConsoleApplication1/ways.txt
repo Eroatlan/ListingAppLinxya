@@ -1,1 +1,1 @@
-﻿a;b;cs
+﻿VMware Workstation;Software\Wow6432Node\VMware, Inc.\VMware Workstation\License.ws.10.0.e2.201303;Serial Number
