@@ -11,12 +11,13 @@ using System.Collections;
 
 namespace ListingSoftware
 {
-    class Program
+    class Programs
     {
         private static Registre reg;
 
         static void Main(string[] args)
         {
+            Ways wat = new Ways();
             SoftList softList = new SoftList();
             try
             {
@@ -69,17 +70,18 @@ namespace ListingSoftware
                 }
 
                 Console.In.ReadLine();
+                Console.WriteLine(softList.match("Serial Key Maker"));
+                Console.In.ReadLine();
             }
             catch (ManagementException e)
             {
                 MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
             }
 
-            reg = new Registre();
-            List<RegGuess> GuessList = new List<RegGuess>();
-            GuessList = reg.LectureReg(softList.getNames());
-            Console.In.ReadLine();
-            Console.WriteLine(GuessList.ElementAt(12));
+           // reg = new Registre();
+           // reg.LectureReg();
+           // Console.In.ReadLine();
         }
+        
     }
 }

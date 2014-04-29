@@ -41,21 +41,23 @@ namespace ListingSoftware
         }
 
         public List<Software> getList()
-        { return this.list; }
-
-        public List<String> getNames()
         {
-            List<String> names = new List<String>();
-            foreach(Software soft in this.list)
+            return this.list;
+        }
+        public void firstTurn()
+        {
+            Registre r= new Registre();
+            Ways w = new Ways();
+
+            Dictionary <String, PathValue> d = w.getDico();
+
+            foreach(Software s in list)
             {
-                try
+                if (d.ContainsKey(s.getName()))
                 {
-                    names.Add(soft.getName());
+                    s.addKey(r.readValue(d[s.getName()]), 100);
                 }
-                catch (Exception)
-                {}
             }
-            return names;
         }
     }
 }

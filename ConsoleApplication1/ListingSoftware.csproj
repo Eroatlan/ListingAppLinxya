@@ -7,7 +7,7 @@
     <ProjectGuid>{7206F2FD-AEB8-403E-AFE9-AD0EB2543437}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ListingLogiciels</RootNamespace>
+    <RootNamespace>ListingSoftware</RootNamespace>
     <AssemblyName>ConsoleApplication1</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,16 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RegGuess.cs" />
+    <Compile Include="Comp.cs" />
+    <Compile Include="PathValue.cs" />
     <Compile Include="SoftList.cs" />
     <Compile Include="Software.cs" />
     <Compile Include="Registre.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ways.cs" />
     <Compile Include="WeightedKey.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ways.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
