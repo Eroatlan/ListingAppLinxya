@@ -58,7 +58,7 @@ namespace ListingSoftware
             return names;
         }
 
-        /*public void firstTurn()
+        public void firstTurn()
         {
             Registre r= new Registre();
             Ways w = new Ways();
@@ -72,6 +72,6 @@ namespace ListingSoftware
                     s.addKey(r.readValue(d[s.getName()]), 100);
                 }
             }
-        }*/
+        }
     }
 }

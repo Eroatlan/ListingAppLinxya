@@ -67,9 +67,14 @@ namespace ListingSoftware
                 {
                 
                     Console.WriteLine(soft.toString());
+                }
+                softList.firstTurn();
+                foreach (Software soft in softList.getList())
+                {
+
+                    Console.WriteLine(soft.toStringKey());
                     Console.In.ReadLine();
                 }
-
                 Console.In.ReadLine();
             }
             catch (ManagementException e)
