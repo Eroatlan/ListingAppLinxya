@@ -65,8 +65,9 @@ namespace ListingSoftware
                 
                 foreach (Software soft in softList.getList())
                 {
+                
                     Console.WriteLine(soft.toString());
-                    //Console.In.ReadLine();
+                    Console.In.ReadLine();
                 }
 
                 Console.In.ReadLine();

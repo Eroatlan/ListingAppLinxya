@@ -116,9 +116,14 @@ namespace ListingSoftware
                 }*/
         public String readValue(PathValue p) 
         { 
-        RegistryKey regKey = myRegKey.OpenSubKey(p.path);
-        String result = (String)regKey.GetValue(p.value);
-        return result;
+            String[] subToOpen= p.path.Split('\\');
+            RegistryKey regKey = myRegKey;
+            foreach (String s in subToOpen) 
+            { 
+                regKey = regKey.OpenSubKey(s);
+            }
+            String result = (String)regKey.GetValue(p.value);
+            return result;
         }
     }
 }
