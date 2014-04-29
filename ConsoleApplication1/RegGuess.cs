@@ -6,28 +6,30 @@ using System.Threading.Tasks;
 
 namespace ListingSoftware
 {
+    //La classe RegGuess est utilisée pour lister un nom de key et les values qu'elle contient. Cela est utilisé pour 
     class RegGuess
     {
+        //Les attributs de la classe sont: le nom de la Key et ses Values (Composées du nom et de la valeur avec un tab......)
         private String name;
-        private List<String> values;
+        private List<NamedValue> values;
 
         public RegGuess(String name)
         {
             this.name = name;
-            this.values = new List<String>();
+            this.values = new List<NamedValue>();
         }
 
-        public void addValue(String val)
+        public void addValue(NamedValue val)
         {
             this.values.Add(val);
         }
 
-        public void addValueRange(List<String> val)
+        public void addValueRange(List<NamedValue> val)
         {
             this.values.AddRange(val);
         }
 
-        public List<String> getValues()
+        public List<NamedValue> getValues()
         { return this.values; }
 
         public String getName()
@@ -36,8 +38,8 @@ namespace ListingSoftware
         public String toString()
         {
             String result = ("Reg entry ==> Name : \t" + this.name + "\nValues : ");
-            foreach (String imp in values)
-            { result = result + "\n\t" + imp; }
+            foreach (NamedValue imp in values)
+            { result = result + "\n\t" + imp.name + " \t " + imp.value ; }
             return result;
         }
     }

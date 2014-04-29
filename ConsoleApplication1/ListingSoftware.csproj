@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comp.cs" />
+    <Compile Include="NamedValue.cs" />
     <Compile Include="PathValue.cs" />
     <Compile Include="RegGuess.cs" />
     <Compile Include="SoftList.cs" />

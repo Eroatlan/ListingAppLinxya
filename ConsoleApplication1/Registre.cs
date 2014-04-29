@@ -134,7 +134,7 @@ namespace ListingSoftware
                 return(guessList);
             }
         }
-
+        // Fonction qui pour une clé permet de créer une liste des NamedValues qu'elle contient.
         public RegGuess FindValues(String regPath)
         {
             RegGuess current = new RegGuess(regPath);
@@ -157,7 +157,9 @@ namespace ListingSoftware
             //Selection criterias
             for (int i = 0; i < values.Length; i++)
             {
-                current.addValue(values[i] + " -> \t" + myRegKey.GetValue(values[i]).ToString());
+                //On crée un objet NamedValue pour pouvoir l'ajouter a la liste dans le RegGuess
+                NamedValue n = new NamedValue(values[i], myRegKey.GetValue(values[i]).ToString());
+                current.addValue(n);
                 //Console.Write("\t " + myRegKey.GetValue(values[i]));
             }
 
@@ -168,10 +170,10 @@ namespace ListingSoftware
             }
             return current;
         }
-
-        public List<String> FindUnderValues(String path)
+        //Permet de rajouter les NamedValues trouvés en-dessous d'une key à cette même key.
+        public List<NamedValue> FindUnderValues(String path)
         {
-            List<String> foundValues = new List<string>();
+            List<NamedValue> foundValues = new List<NamedValue>();
             try
             {
                 RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, path);
@@ -191,7 +193,8 @@ namespace ListingSoftware
             //Selection criterias
             for (int i = 0; i < values.Length; i++)
             {
-                foundValues.Add(values[i] + " -> \t" + myRegKey.GetValue(values[i]).ToString());
+                NamedValue n = new NamedValue(values[i], myRegKey.GetValue(values[i]).ToString());
+                foundValues.Add(n);
                 //Console.Write("\t " + myRegKey.GetValue(values[i]));
             }
             for (int i = 0; i < subkeys.Length; i++)
