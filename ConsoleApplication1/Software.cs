@@ -59,14 +59,18 @@ namespace ListingSoftware
         public String toStringKey()
         {
             String ret;
-            String sKeys = " ";
-            List<WeightedKey> key = this.getKeys();
-            foreach (WeightedKey k in key)
+            if (this.getKeys().Count > 0)
             {
-                sKeys = sKeys +  " _:_ " + k.getValue() + " avec poids: " + k.getWeight();
+                String sKeys = " ";
+                List<WeightedKey> key = this.getKeys();
+                foreach (WeightedKey k in key)
+                {
+                    sKeys = sKeys + " => " + k.getValue() + " avec poids: " + k.getWeight();
+                }
+                ret = "Entry ==> Name : " + this.name + " - Vendor : " + this.vendor + " - Keys : " + sKeys;
+                return ret;
             }
-            ret = "Entry ==> Name : " + this.name + " - Vendor : " + this.vendor + " - Keys : " + sKeys;
-            return ret;
+            else return null;
         }
     }
 }

@@ -71,9 +71,11 @@ namespace ListingSoftware
                 softList.firstTurn();
                 foreach (Software soft in softList.getList())
                 {
-
-                    Console.WriteLine(soft.toStringKey());
-                    Console.In.ReadLine();
+                    if (soft.toStringKey() != null)
+                    {
+                        Console.WriteLine(soft.toStringKey());
+                        Console.In.ReadLine();
+                    }
                 }
                 Console.In.ReadLine();
             }
