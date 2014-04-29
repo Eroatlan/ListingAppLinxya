@@ -59,7 +59,7 @@ namespace ListingSoftware
                     try{version = queryObj["Version"].ToString();}
                     catch (Exception){}
                     
-                    Console.WriteLine(i + name);
+                    Console.Write(". ");
                     softList.addSoft(new Software(idN, name, vend, instLoc, prodID, version));
                 }
                 
@@ -67,7 +67,6 @@ namespace ListingSoftware
                 {
                 
                     Console.WriteLine(soft.toString());
-                    Console.In.ReadLine();
                 }
 
                 Console.In.ReadLine();
@@ -81,7 +80,10 @@ namespace ListingSoftware
             List<RegGuess> GuessList = new List<RegGuess>();
             GuessList = reg.LectureReg(softList.getNames());
             Console.In.ReadLine();
-            Console.WriteLine(GuessList.ElementAt(12));
+            foreach (RegGuess guess in GuessList)
+            { Console.WriteLine(guess.toString());}
+            
+            Console.ReadLine();
         }
     }
 }

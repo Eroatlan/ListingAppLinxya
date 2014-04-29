@@ -35,7 +35,9 @@ namespace ListingSoftware
 
         public String toString()
         {
-            String result = ("Reg entry ==> Name : " + this.name + " - Values : " + this.values);
+            String result = ("Reg entry ==> Name : \t" + this.name + "\nValues : ");
+            foreach (String imp in values)
+            { result = result + "\n\t" + imp; }
             return result;
         }
     }

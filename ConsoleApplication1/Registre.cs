@@ -29,7 +29,12 @@ namespace ListingSoftware
             this.toAvoid = new List<string>();
             toAvoid.Add("Classes"); 
             toAvoid.Add("CoreSecurity");
+            toAvoid.Add("MaxxAudio");
+            toAvoid.Add("ASP.NET");
+            toAvoid.Add("Fax");
             toAvoid.Add("Microsoft");
+            toAvoid.Add("secure");
+            toAvoid.Add("SID");
         }
 
         //Fonction initiale pour la lecture de registre (sans paramètre) appelle la version surchargé pour la suite.
@@ -55,7 +60,14 @@ namespace ListingSoftware
                     else
                     {
                         Console.WriteLine((i + 1) + " - " + subkeys[i]);
-                        guessList.AddRange(LectureReg(subkeys[i], softList));
+                        if (softList.Contains(subkeys[i]))
+                        {
+                            guessList.Add(FindValues(subkeys[i]));
+                        }
+                        else
+                        {
+                            guessList.AddRange(LectureReg(subkeys[i], softList));
+                        }
                         myRegKey = temp;
                     }
                 }
@@ -66,6 +78,7 @@ namespace ListingSoftware
             catch (NullReferenceException err)
             {
                 Console.WriteLine(err);
+                Console.ReadLine();
                 return (null);
             }
         }
@@ -74,7 +87,6 @@ namespace ListingSoftware
         public List<RegGuess> LectureReg(String regPath, List<String> softList)
         {
             List<RegGuess> guessList = new List<RegGuess>(); 
-            
             try
             {
                 try
@@ -95,17 +107,8 @@ namespace ListingSoftware
                 String[] subkeys = myRegKey.GetSubKeyNames();
                 String[] values = myRegKey.GetValueNames();
 
-                /*for (int i = 0; i < values.Length; i++)
-                {
-                    Console.Write("\t " + myRegKey.GetValue(values[i]));
-                }
-                Console.WriteLine();*/
-
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                    //Console.ReadLine();
-                    //Console.WriteLine((i + 1) + " - " + subkeys[i]);
-                    
                     if (toAvoid.Contains(subkeys[i]))
                     {
                     }
@@ -113,11 +116,12 @@ namespace ListingSoftware
                     {
                         if (softList.Contains(subkeys[i]))
                         {
+                            Console.WriteLine((i + 1) + " - " + subkeys[i]);
                             guessList.Add(FindValues(subkeys[i]));
                         }
                         else
                         {
-                            LectureReg(subkeys[i], softList);
+                            guessList.AddRange(LectureReg(subkeys[i], softList));
                         }
                         myRegKey = temp;
                     }
@@ -153,7 +157,7 @@ namespace ListingSoftware
             //Selection criterias
             for (int i = 0; i < values.Length; i++)
             {
-                current.addValue(values[i]);
+                current.addValue(values[i] + " -> \t" + myRegKey.GetValue(values[i]).ToString());
                 //Console.Write("\t " + myRegKey.GetValue(values[i]));
             }
 
@@ -187,7 +191,7 @@ namespace ListingSoftware
             //Selection criterias
             for (int i = 0; i < values.Length; i++)
             {
-                foundValues.Add(values[i]);
+                foundValues.Add(values[i] + " -> \t" + myRegKey.GetValue(values[i]).ToString());
                 //Console.Write("\t " + myRegKey.GetValue(values[i]));
             }
             for (int i = 0; i < subkeys.Length; i++)
