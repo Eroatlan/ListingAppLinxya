@@ -53,7 +53,7 @@ namespace ListingSoftware
         public String toString()
         {
             String ret;
-            ret = "Entry ==> Name : " + this.name + " - Vendor : " + this.vendor;
+            ret = "Entry ==> Name : " + this.name; //+ " - Vendor : " + this.vendor;
             return ret;
         }
     }

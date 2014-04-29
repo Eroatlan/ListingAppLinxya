@@ -13,7 +13,7 @@ namespace ListingSoftware
 {
     class Programs
     {
-        private static Registre reg;
+        //private static Registre reg;
 
         static void Main(string[] args)
         {
@@ -71,18 +71,17 @@ namespace ListingSoftware
                 }
 
                 Console.In.ReadLine();
-                Console.WriteLine(softList.match("Serial Key Maker"));
-                Console.In.ReadLine();
             }
             catch (ManagementException e)
             {
                 MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
             }
 
-           // reg = new Registre();
-           // reg.LectureReg();
-           // Console.In.ReadLine();
+            /*reg = new Registre();
+            List<RegGuess> GuessList = new List<RegGuess>();
+            GuessList = reg.LectureReg(softList.getNames());
+            Console.In.ReadLine();
+            Console.WriteLine(GuessList.ElementAt(12));*/
         }
-        
     }
 }
