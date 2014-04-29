@@ -14,7 +14,7 @@ namespace ListingSoftware
         public Ways()
         {
             dico = new Dictionary<string, PathValue>();
-            String[] ways = System.IO.File.ReadAllLines(@"C:\Users\Thomas\Desktop\Pro\Visual\ListingAppLinxya\ConsoleApplication1\ways.txt");
+            String[] ways = System.IO.File.ReadAllLines(@"ways.txt");
             foreach (String s in ways)
             {
                 String[] d = s.Split(';');
@@ -31,7 +31,7 @@ namespace ListingSoftware
             string insert=key+";"+way+";"+value;
             string[] a= new String[1];
             a[0]= insert;
-            System.IO.File.AppendAllLines(@"C:\Users\Thomas\Desktop\Pro\Visual\ListingAppLinxya\ConsoleApplication1\ways.txt", a);
+            System.IO.File.AppendAllLines(@"ways.txt", a);
         }
 
         public Dictionary<String, PathValue> getDico()

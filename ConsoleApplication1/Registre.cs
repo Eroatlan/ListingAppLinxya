@@ -10,8 +10,9 @@ namespace ListingSoftware
 {
     class Registre
     {
-        RegistryKey myRegKey = Registry.LocalMachine;
-
+        private RegistryKey myRegKey = Registry.LocalMachine;
+        List<String> toAvoid;
+         
         public Registre()
         {
             try
@@ -24,10 +25,15 @@ namespace ListingSoftware
                 Console.WriteLine(e.Message);
                 return;
             }
+
+            this.toAvoid = new List<string>();
+            toAvoid.Add("Classes"); 
+            toAvoid.Add("CoreSecurity");
+            toAvoid.Add("Microsoft");
         }
 
         //Fonction initiale pour la lecture de registre (sans paramètre) appelle la version surchargé pour la suite.
-        public void LectureReg ()
+        public List<RegGuess> LectureReg (List<String> softList)
         {
             try 
             {
@@ -37,7 +43,7 @@ namespace ListingSoftware
             catch (Exception e) 
             { 
                 Console.WriteLine(e.Message); 
-                return; 
+                return(null); 
             }   
 
             myRegKey = myRegKey.OpenSubKey(@"SOFTWARE");
@@ -47,29 +53,38 @@ namespace ListingSoftware
 
             try
             {
+                List<RegGuess> guessList = new List<RegGuess>();
                 
                 //Block d'affichage simple
                 String[] subkeys = myRegKey.GetSubKeyNames();
 
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                    Console.WriteLine((i+1) + " - " + subkeys[i]);
-                    LectureReg(subkeys[i]);
-                    myRegKey = temp;
+                    if (toAvoid.Contains(subkeys[i]))
+                    {
+                    }
+                    else
+                    {
+                        Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                        guessList.AddRange(LectureReg(subkeys[i], softList));
+                        myRegKey = temp;
+                    }
                 }
 
                 Console.ReadLine();
-              
+                return (guessList);
             }
             catch (NullReferenceException err)
             {
                 Console.WriteLine(err);
+                return (null);
             }
         }
 
         //Fonction surchargée de lecture de registre, lit jusqu'à trouver un noeud correspondant à un programme
-        public void LectureReg(String regPath)
+        public List<RegGuess> LectureReg(String regPath, List<String> softList)
         {
+            List<RegGuess> guessList = new List<RegGuess>();
             try
             {
                 myRegKey = myRegKey.OpenSubKey(regPath);
@@ -78,30 +93,90 @@ namespace ListingSoftware
                 String[] subkeys = myRegKey.GetSubKeyNames();
                 String[] values = myRegKey.GetValueNames();
 
-                for (int i = 0; i < values.Length; i++)
+                /*for (int i = 0; i < values.Length; i++)
                 {
                     Console.Write("\t " + myRegKey.GetValue(values[i]));
                 }
-                Console.WriteLine();
+                Console.WriteLine();*/
 
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                   // Console.ReadLine();
-                    Console.WriteLine((i + 1) + " - " + subkeys[i]);
-                    if ("Classes-Shit".Contains(subkeys[i]))
+                    //Console.ReadLine();
+                    //Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                    
+                    if (toAvoid.Contains(subkeys[i]))
                     {
                     }
                     else
                     {
-                        LectureReg(subkeys[i]);
+                        if (softList.Contains(subkeys[i]))
+                        {
+                            guessList.Add(FindValues(subkeys[i]));
+                        }
+                        else
+                        {
+                            LectureReg(subkeys[i], softList);
+                        }
                         myRegKey = temp;
                     }
                 }
+                return (guessList);
             }
             catch (NullReferenceException err)
             {
                 Console.WriteLine(err);
+                return(guessList);
             }
+        }
+
+        public RegGuess FindValues(String regPath)
+        {
+            RegGuess current = new RegGuess(regPath);
+
+            myRegKey = myRegKey.OpenSubKey(regPath);
+            RegistryKey temp = myRegKey;
+
+            String[] subkeys = myRegKey.GetSubKeyNames();
+            String[] values = myRegKey.GetValueNames();
+
+            //Selection criterias
+            for (int i = 0; i < values.Length; i++)
+            {
+                current.addValue(values[i]);
+                //Console.Write("\t " + myRegKey.GetValue(values[i]));
+            }
+
+            for (int i = 0; i < subkeys.Length; i++)
+            {
+                current.addValueRange(FindUnderValues(subkeys[i]));
+                myRegKey = temp;
+            }
+            return current;
+        }
+
+        public List<String> FindUnderValues(String path)
+        {
+            List<String> foundValues = new List<string>();
+
+            myRegKey = myRegKey.OpenSubKey(path);
+            RegistryKey temp = myRegKey;
+
+            String[] subkeys = myRegKey.GetSubKeyNames();
+            String[] values = myRegKey.GetValueNames();
+
+            //Selection criterias
+            for (int i = 0; i < values.Length; i++)
+            {
+                foundValues.Add(values[i]);
+                //Console.Write("\t " + myRegKey.GetValue(values[i]));
+            }
+            for (int i = 0; i < subkeys.Length; i++)
+            {
+                foundValues.AddRange(FindUnderValues(subkeys[i]));
+                myRegKey = temp;
+            }
+
+            return (foundValues);
         }
 
         /*
@@ -114,11 +189,13 @@ namespace ListingSoftware
                 {
                     Console.WriteLine((i + 1) + " - " + subkeys[i] + " - " + regK.GetValue(subkeys[i]));
                 }*/
+    
+
         public String readValue(PathValue p) 
         { 
-        RegistryKey regKey = myRegKey.OpenSubKey(p.path);
-        String result = (String)regKey.GetValue(p.value);
-        return result;
+            RegistryKey regKey = myRegKey.OpenSubKey(p.path);
+            String result = (String)regKey.GetValue(p.value);
+            return result;
         }
     }
 }

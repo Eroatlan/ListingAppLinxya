@@ -96,7 +96,7 @@ namespace ListingSoftware
         //Cette méthode est utilisée pour vérifier si le string ressemble à une clé CD découpée "bizarrement" --> AAAAAAAAA-AAA-AAAAA
         private static int isWeirdBasickey(String toTest)
         {
-            int prob = 0;
+            //int prob = 0;
             int tot = 0;
             int beforeFirst = 0;
             int charsBetweenLastFound = 0;

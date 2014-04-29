@@ -17,7 +17,7 @@ namespace ListingSoftware
             this.values = new List<String>();
         }
 
-        public void addValue (String val)
+        public void addValue(String val)
         {
             this.values.Add(val);
         }
@@ -30,12 +30,12 @@ namespace ListingSoftware
         public List<String> getValues()
         { return this.values; }
 
-        public String getName ()
+        public String getName()
         { return this.name; }
 
         public String toString()
         {
-            String result = ("Reg entry ==> Name : " + this.name + " - Values : " + this.values );
+            String result = ("Reg entry ==> Name : " + this.name + " - Values : " + this.values);
             return result;
         }
     }

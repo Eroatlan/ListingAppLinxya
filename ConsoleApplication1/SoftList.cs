@@ -41,10 +41,24 @@ namespace ListingSoftware
         }
 
         public List<Software> getList()
+        { return this.list; }
+
+        public List<String> getNames()
         {
-            return this.list;
+            List<String> names = new List<String>();
+            foreach(Software soft in this.list)
+            {
+                try
+                {
+                    names.Add(soft.getName());
+                }
+                catch (Exception)
+                {}
+            }
+            return names;
         }
-        public void firstTurn()
+
+        /*public void firstTurn()
         {
             Registre r= new Registre();
             Ways w = new Ways();
@@ -58,6 +72,6 @@ namespace ListingSoftware
                     s.addKey(r.readValue(d[s.getName()]), 100);
                 }
             }
-        }
+        }*/
     }
 }
