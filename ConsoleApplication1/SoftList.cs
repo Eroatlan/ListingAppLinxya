@@ -42,5 +42,20 @@ namespace ListingSoftware
 
         public List<Software> getList()
         { return this.list; }
+
+        public List<String> getNames()
+        {
+            List<String> names = new List<String>();
+            foreach(Software soft in this.list)
+            {
+                try
+                {
+                    names.Add(soft.getName());
+                }
+                catch (Exception)
+                {}
+            }
+            return names;
+        }
     }
 }

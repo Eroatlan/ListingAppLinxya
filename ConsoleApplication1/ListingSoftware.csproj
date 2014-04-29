@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RegGuess.cs" />
     <Compile Include="SoftList.cs" />
     <Compile Include="Software.cs" />
     <Compile Include="Registre.cs" />
