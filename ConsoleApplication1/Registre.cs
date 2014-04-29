@@ -27,6 +27,8 @@ namespace ListingSoftware
             }
 
             this.toAvoid = new List<string>();
+            //Définition des Key du registre qu'il n'est pas intéressant de parcourir. (car ils provoquent une erreur, notamment)
+            //Use With Caution
             toAvoid.Add("Classes"); 
             toAvoid.Add("CoreSecurity");
             toAvoid.Add("MaxxAudio");
@@ -170,7 +172,7 @@ namespace ListingSoftware
             }
             return current;
         }
-        //Permet de rajouter les NamedValues trouvés en-dessous d'une key à cette même key.
+        //Permet de trouver les NamedValues en dessous d'une key. Est notamment utilisé pour la fonction FindValues.
         public List<NamedValue> FindUnderValues(String path)
         {
             List<NamedValue> foundValues = new List<NamedValue>();
@@ -207,6 +209,7 @@ namespace ListingSoftware
         }
 
         /*
+         * Code d'exemple
                 //lire les valeurs d'un chemin particulier - Recover Keys
                 regK = myRegKey.OpenSubKey("Recover Keys");
                 Console.WriteLine(regK);
@@ -217,7 +220,7 @@ namespace ListingSoftware
                     Console.WriteLine((i + 1) + " - " + subkeys[i] + " - " + regK.GetValue(subkeys[i]));
                 }*/
     
-
+        //Permet de lire précisément une valeur dans un chemin déterminé. Utilisé dans le premier parcours.
         public String readValue(PathValue p) 
         { 
             String[] subToOpen= p.path.Split('\\');

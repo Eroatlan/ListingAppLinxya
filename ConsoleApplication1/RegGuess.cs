@@ -9,7 +9,7 @@ namespace ListingSoftware
     //La classe RegGuess est utilisée pour lister un nom de key et les values qu'elle contient. Cela est utilisé pour 
     class RegGuess
     {
-        //Les attributs de la classe sont: le nom de la Key et ses Values (Composées du nom et de la valeur avec un tab......)
+        //Les attributs de la classe sont: le nom de la Key et ses NamedValues (nom+valeur associée)
         private String name;
         private List<NamedValue> values;
 
