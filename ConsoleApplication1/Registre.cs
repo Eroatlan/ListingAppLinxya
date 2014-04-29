@@ -35,17 +35,6 @@ namespace ListingSoftware
         //Fonction initiale pour la lecture de registre (sans paramètre) appelle la version surchargé pour la suite.
         public List<RegGuess> LectureReg (List<String> softList)
         {
-            try 
-            {
-                RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, @"HKEY_LOCAL_MACHINE"); //SOFTWAREMicrosoftWindows NTCurrentVersion
-                regPermission.Demand(); 
-            } 
-            catch (Exception e) 
-            { 
-                Console.WriteLine(e.Message); 
-                return(null); 
-            }   
-
             myRegKey = myRegKey.OpenSubKey(@"SOFTWARE");
             RegistryKey temp = myRegKey;
 
@@ -84,9 +73,22 @@ namespace ListingSoftware
         //Fonction surchargée de lecture de registre, lit jusqu'à trouver un noeud correspondant à un programme
         public List<RegGuess> LectureReg(String regPath, List<String> softList)
         {
-            List<RegGuess> guessList = new List<RegGuess>();
+            List<RegGuess> guessList = new List<RegGuess>(); 
+            
             try
             {
+                try
+                {
+                    RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, regPath);
+                    regPermission.Demand();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
+                    return (null);
+                }
+
                 myRegKey = myRegKey.OpenSubKey(regPath);
                 RegistryKey temp = myRegKey;
 
@@ -132,7 +134,16 @@ namespace ListingSoftware
         public RegGuess FindValues(String regPath)
         {
             RegGuess current = new RegGuess(regPath);
-
+            try
+            {
+                RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, regPath); //SOFTWAREMicrosoftWindows NTCurrentVersion
+                regPermission.Demand();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return (null);
+            }
             myRegKey = myRegKey.OpenSubKey(regPath);
             RegistryKey temp = myRegKey;
 
@@ -157,7 +168,16 @@ namespace ListingSoftware
         public List<String> FindUnderValues(String path)
         {
             List<String> foundValues = new List<string>();
-
+            try
+            {
+                RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, path);
+                regPermission.Demand();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return (null);
+            }  
             myRegKey = myRegKey.OpenSubKey(path);
             RegistryKey temp = myRegKey;
 
