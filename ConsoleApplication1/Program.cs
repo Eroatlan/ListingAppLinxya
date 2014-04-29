@@ -61,6 +61,7 @@ namespace ListingSoftware
                     
                     Console.WriteLine(i + name);
                     softList.addSoft(new Software(idN, name, vend, instLoc, prodID, version));
+                    Console.ReadLine();
                 }
                 
                 foreach (Software soft in softList.getList())
