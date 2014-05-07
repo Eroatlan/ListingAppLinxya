@@ -21,5 +21,10 @@ namespace ListingSoftware
         { return this.value; }
         public int getWeight ()
         { return this.weight; }
+
+        override public string ToString() 
+        {
+            return value +" - "+ weight;
+        }
     }
 }

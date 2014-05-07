@@ -37,6 +37,7 @@ namespace ListingSoftware
             toAvoid.Add("Microsoft");
             toAvoid.Add("secure");
             toAvoid.Add("SID");
+            toAvoid.Add("Input Director");
         }
 
         //Fonction initiale pour la lecture de registre (sans paramètre) appelle la version surchargé pour la suite.
@@ -51,7 +52,7 @@ namespace ListingSoftware
             {
                 List<RegGuess> guessList = new List<RegGuess>();
                 
-                //Block d'affichage simple
+                //Bloc d'affichage simple
                 String[] subkeys = myRegKey.GetSubKeyNames();
 
                 for (int i = 0; i < subkeys.Length; i++)

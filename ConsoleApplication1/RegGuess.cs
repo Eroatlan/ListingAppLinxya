@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ListingSoftware
 {
-    //La classe RegGuess est utilisée pour lister un nom de key et les values qu'elle contient. Cela est utilisé pour 
+    //La classe RegGuess est utilisée pour lister un nom de key et les values qu'elle contient. Cela est utilisé pour retrouver ce qui serait une serial key.
     class RegGuess
     {
         //Les attributs de la classe sont: le nom de la Key et ses NamedValues (nom+valeur associée)

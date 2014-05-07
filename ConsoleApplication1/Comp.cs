@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ListingSoftware
@@ -25,22 +26,48 @@ namespace ListingSoftware
             else
                 return 0;
         }
+        //Méthode utilisée pour tester une regGuess entière.
+        public static List<WeightedKey> regGuessTest(RegGuess r) 
+        {
+            List<WeightedKey> result= new List<WeightedKey>();
+            foreach (NamedValue nv in r.getValues())
+            {
+                if (namedValueTest(nv) >= 70) 
+                {
+                    WeightedKey k = new WeightedKey(nv.value, namedValueTest(nv));
+                    result.Add(k);
+                }
+            }
+            return result;
+        }
+        //Méthode utilisée pour tester une namedValue
+        public static int namedValueTest(NamedValue n)
+        {
+            int result = 0;
+            Regex nameTest = new Regex("#|Serial|key|licence|license|id|#i", RegexOptions.IgnoreCase); 
+            if (nameTest.IsMatch(n.name))
+            {
+                result = 20;
+            }
+            result += keyTest(n.value);
+            return result;
+        }
         //Méthode utilisée pour tester une chaîne, utilisant les méthodes de test privées.
         public static int keyTest(String s)
         {
-            if (s.Contains("-") || s.Contains(" "))
+            if (s.Contains("-") || s.Contains(" ") && !s.Contains(".") && !s.Contains("\\"))
             {
                 if (isBasicKey(s) == 1)
                 {
-                    return 100;
+                    return 80;
                 }
                 else if (isWeirdBasickey(s) == 1)
                 {
-                    return 80;
+                    return 65;
                 }
                 else return 0;
             }
-            else return (isKeyBloc(s) * 10) - 10;
+            else return (isKeyBloc(s) * 10) - 25;
 
         }
 
@@ -72,17 +99,9 @@ namespace ListingSoftware
                         charsBetweenLastFound = i - (charsBetweenLastFound + 1);
                     }
                 }
-                else if (b)
+                else if (b && !(charsBetweenLastFound == beforeFirst))
                 {
-                    if (charsBetweenLastFound == beforeFirst)
-                    {
-                        //on continue encore
-                    }
-                    else
-                    {
-                        //ça sent pas bon baby
                         return 0;
-                    }
                 }
 
             }
@@ -133,6 +152,10 @@ namespace ListingSoftware
         //Méthode qui permet de renvoyer un coeff de probabilité pour les chaines sans espace
         private static int isKeyBloc(String toTest)
         {
+            if (toTest.Contains("\\") || toTest.Contains(".") || toTest.Contains(" ")|| toTest.Contains("_")) 
+            {
+                return 0;
+            }
             int prob = 0;
             int nums = 0;
             int autre = 0;

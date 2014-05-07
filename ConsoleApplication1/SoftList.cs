@@ -16,7 +16,7 @@ namespace ListingSoftware
             this.list = new List<Software>();
         }
 
-        //function to tell if a value exists with the given name in the list
+        //method to tell if a value exists with the given name in the list
         public bool match (String name)
         {
             foreach (Software soft in this.list)

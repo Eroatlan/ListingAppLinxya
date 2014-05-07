@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace ListingSoftware
 {
@@ -62,7 +63,7 @@ namespace ListingSoftware
                     Console.Write(". ");
                     softList.addSoft(new Software(idN, name, vend, instLoc, prodID, version));
                 }
-                
+                /*
                 foreach (Software soft in softList.getList())
                 {
                 
@@ -70,6 +71,7 @@ namespace ListingSoftware
                 }
 
                 Console.In.ReadLine();
+                 */
             }
             catch (ManagementException e)
             {
@@ -81,7 +83,12 @@ namespace ListingSoftware
             GuessList = reg.LectureReg(softList.getNames());
             Console.In.ReadLine();
             foreach (RegGuess guess in GuessList)
-            { Console.WriteLine(guess.toString());}
+            {
+                foreach (WeightedKey k in Comp.regGuessTest(guess))
+                {
+                    Console.WriteLine(k.ToString()) ;
+                }
+            }
             
             Console.ReadLine();
         }
