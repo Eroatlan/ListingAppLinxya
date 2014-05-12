@@ -78,16 +78,10 @@ namespace ListingSoftware
                 MessageBox.Show("An error occurred while querying for WMI data: " + e.Message);
             }
 
-            reg = new Registre();
-            List<RegGuess> GuessList = new List<RegGuess>();
-            GuessList = reg.LectureReg(softList.getNames());
-            Console.In.ReadLine();
-            foreach (RegGuess guess in GuessList)
+            softList.secondTurn();
+            foreach (Software s in softList.getList())
             {
-                foreach (WeightedKey k in Comp.regGuessTest(guess))
-                {
-                    Console.WriteLine(k.ToString()) ;
-                }
+                Console.WriteLine(s.toStringKey());
             }
             
             Console.ReadLine();

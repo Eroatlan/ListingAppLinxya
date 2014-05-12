@@ -29,12 +29,32 @@ namespace ListingSoftware
                     }
                 }
                 catch(Exception)
-                {
-                }
+                {}
             }
             return false;
         }
+        //method that returns the Software with a given name. Returns null if it doesn't exist
+        public Software getSoftByName(String name)
+        {
+            if (match(name))
+            {
+                foreach (Software s in this.list)
+                {
+                    try
+                    {
+                        if (s.getName().Equals(name))
+                        {
+                            return s;
+                        }
+                    }
+                    catch (Exception)
+                    {}
+                }
+                return null;
+            }
+            else return null;
 
+        }
         public void addSoft (Software soft)
         {
             this.list.Add(soft);
@@ -57,10 +77,12 @@ namespace ListingSoftware
             }
             return names;
         }
-
+        //Cette méthode appelle tout ce qui est nécessaire dans le premier tour de boucle: lecture du dictionnaire pour accès aux données.
         public void firstTurn()
         {
+            //Définition de l'accès au regisre par la classe Registre
             Registre r= new Registre();
+            //La classe Ways et celle qui contient le chemin d'accès au dictionnaire.
             Ways w = new Ways();
 
             Dictionary <String, PathValue> d = w.getDico();
@@ -70,6 +92,24 @@ namespace ListingSoftware
                 if (d.ContainsKey(s.getName()))
                 {
                     s.addKey(r.readValue(d[s.getName()]), 100);
+                }
+            }
+        }
+        //Cette méthode est celle qui permet le second tour: recherche dynamique dans le registre de clés CD.
+        public void secondTurn()
+        {
+            //Définition des variables registre et guessList qui sont nécessaires.
+            Registre reg = new Registre();
+            List<RegGuess> GuessList = new List<RegGuess>();
+            //Tour du registre complet.
+            GuessList = reg.LectureReg(this.getNames());
+            foreach (RegGuess guess in GuessList)
+            {
+                foreach (WeightedKey k in Comp.regGuessTest(guess))
+                {
+                    Software r = this.getSoftByName(guess.getName());
+                    //Ajouter clause comme quoi on peut pas en rajouter après 100.
+                    r.addKey(k);
                 }
             }
         }

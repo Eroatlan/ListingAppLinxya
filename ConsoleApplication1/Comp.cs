@@ -152,7 +152,7 @@ namespace ListingSoftware
         //Méthode qui permet de renvoyer un coeff de probabilité pour les chaines sans espace
         private static int isKeyBloc(String toTest)
         {
-            if (toTest.Contains("\\") || toTest.Contains(".") || toTest.Contains(" ")|| toTest.Contains("_")) 
+            if (toTest.Contains("\\") || toTest.Contains(".") || toTest.Contains(" ")|| toTest.Contains("_") || toTest.Length<4) 
             {
                 return 0;
             }
@@ -169,6 +169,7 @@ namespace ListingSoftware
                 else
                     autre += 1;
             }
+            //Attribution de coefficients de probabilité.
             if (nums == 0)
                 return 0;
             if (nums >= 3)
@@ -182,7 +183,7 @@ namespace ListingSoftware
             if (autre - nums > 10)
                 prob -= 2;
             if (nums == toTest.Length)
-                prob += 3;
+                prob += 1;
             return prob;
         }
 

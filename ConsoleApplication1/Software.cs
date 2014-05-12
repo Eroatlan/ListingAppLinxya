@@ -45,6 +45,8 @@ namespace ListingSoftware
         //Functions to manipulate weighted keys
         public void addKey (String val, int weight)
         { this.keys.Add(new WeightedKey(val, weight)); }
+        public void addKey(WeightedKey k)
+        { this.keys.Add(k); }
         public List<WeightedKey> getKeys ()
         { return this.keys; }
 
