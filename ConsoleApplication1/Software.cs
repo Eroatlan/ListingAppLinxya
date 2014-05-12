@@ -74,5 +74,22 @@ namespace ListingSoftware
             }
             else return null;
         }
+        //Méthode qui sert lors de la vérification de si on insère ou non une clé
+        public bool IsCompleted()
+        {
+            foreach (WeightedKey k in getKeys())
+            {
+                if (k.getWeight() == 100)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        //Fonction qui permet de supprimer les clés déjà stockées.s
+        public void ResetKeys()
+        {
+            this.keys = new List<WeightedKey>();
+        }
     }
 }

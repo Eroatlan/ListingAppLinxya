@@ -101,15 +101,24 @@ namespace ListingSoftware
             //Définition des variables registre et guessList qui sont nécessaires.
             Registre reg = new Registre();
             List<RegGuess> GuessList = new List<RegGuess>();
-            //Tour du registre complet.
+            //Tour du registre complet:
+            //Récupération des entrées registres qui pourraient correspondre avec ce que l'on attend
             GuessList = reg.LectureReg(this.getNames());
             foreach (RegGuess guess in GuessList)
             {
                 foreach (WeightedKey k in Comp.regGuessTest(guess))
                 {
                     Software r = this.getSoftByName(guess.getName());
-                    //Ajouter clause comme quoi on peut pas en rajouter après 100.
-                    r.addKey(k);
+                    //Si on n'a  pas déjà trouvé une clé avec 100% de chance
+                    if (!r.IsCompleted())
+                    {
+                        //Si cette méthode a trouvé une clé avec pour valeur 100, on supprime les anciennes.
+                        if (k.getWeight() == 100) 
+                        {
+                            r.ResetKeys();
+                        }
+                        r.addKey(k);
+                    }
                 }
             }
         }
