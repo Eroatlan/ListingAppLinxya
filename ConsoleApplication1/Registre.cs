@@ -186,18 +186,6 @@ namespace ListingSoftware
 
             return (foundValues);
         }
-
-        /*
-         * Code d'exemple
-                //lire les valeurs d'un chemin particulier - Recover Keys
-                regK = myRegKey.OpenSubKey("Recover Keys");
-                Console.WriteLine(regK);
-                subkeys = regK.GetValueNames();
-
-                for (int i = 0; i < subkeys.Length; i++)
-                {
-                    Console.WriteLine((i + 1) + " - " + subkeys[i] + " - " + regK.GetValue(subkeys[i]));
-                }*/
     
         //Permet de lire précisément une valeur dans un chemin déterminé. Utilisé dans le premier parcours.
         public String readValue(PathValue p) 
