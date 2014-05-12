@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Security.Permissions;
+using System.Security.AccessControl;
+using System.Security;
 
 namespace ListingSoftware
 {
@@ -26,43 +28,25 @@ namespace ListingSoftware
                 return;
             }
 
-            this.toAvoid = new List<string>();
-            //Définition des Key du registre qu'il n'est pas intéressant de parcourir. (car ils provoquent une erreur, notamment)
-            //Use With Caution
-            toAvoid.Add("Classes"); 
-            toAvoid.Add("CoreSecurity");
-            toAvoid.Add("MaxxAudio");
-            toAvoid.Add("ASP.NET");
-            toAvoid.Add("Fax");
-            toAvoid.Add("Microsoft");
-            toAvoid.Add("secure");
-            toAvoid.Add("SID");
-            toAvoid.Add("Input Director");
         }
 
         //Fonction initiale pour la lecture de registre (sans paramètre) appelle la version surchargé pour la suite.
         public List<RegGuess> LectureReg (List<String> softList)
         {
-            myRegKey = myRegKey.OpenSubKey(@"SOFTWARE");
+            myRegKey = myRegKey.OpenSubKey(@"SOFTWARE",false);
             RegistryKey temp = myRegKey;
 
             Console.WriteLine(myRegKey.ToString());
+            List<RegGuess> guessList = new List<RegGuess>();
 
             try
             {
-                List<RegGuess> guessList = new List<RegGuess>();
-                
                 //Bloc d'affichage simple
                 String[] subkeys = myRegKey.GetSubKeyNames();
 
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                    if (toAvoid.Contains(subkeys[i]))
-                    {
-                    }
-                    else
-                    {
-                        Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                    Console.WriteLine((i + 1) + " - " + subkeys[i]);
                         if (softList.Contains(subkeys[i]))
                         {
                             guessList.Add(FindValues(subkeys[i]));
@@ -72,29 +56,29 @@ namespace ListingSoftware
                             guessList.AddRange(LectureReg(subkeys[i], softList));
                         }
                         myRegKey = temp;
-                    }
                 }
 
                 Console.ReadLine();
                 return (guessList);
             }
-            catch (NullReferenceException err)
+            catch (SecurityException se)
             {
-                Console.WriteLine(err);
-                Console.ReadLine();
-                return (null);
+                Console.WriteLine("\t\t Impossible to access SOFTWARE.");
+                return (guessList);
             }
         }
 
         //Fonction surchargée de lecture de registre, lit jusqu'à trouver un noeud correspondant à un programme
         public List<RegGuess> LectureReg(String regPath, List<String> softList)
         {
-            List<RegGuess> guessList = new List<RegGuess>(); 
+            List<RegGuess> guessList = new List<RegGuess>();
+            RegistryKey temp = myRegKey;
             try
             {
+                RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, regPath);
                 try
                 {
-                    RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, regPath);
+                    
                     regPermission.Demand();
                 }
                 catch (Exception e)
@@ -103,37 +87,31 @@ namespace ListingSoftware
                     Console.ReadLine();
                     return (null);
                 }
-
+                RegistryRights regR = new RegistryRights();
                 myRegKey = myRegKey.OpenSubKey(regPath);
-                RegistryKey temp = myRegKey;
+                temp = myRegKey;
 
                 String[] subkeys = myRegKey.GetSubKeyNames();
                 String[] values = myRegKey.GetValueNames();
 
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                    if (toAvoid.Contains(subkeys[i]))
+                    if (softList.Contains(subkeys[i]))
                     {
+                        Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                        guessList.Add(FindValues(subkeys[i]));
                     }
                     else
                     {
-                        if (softList.Contains(subkeys[i]))
-                        {
-                            Console.WriteLine((i + 1) + " - " + subkeys[i]);
-                            guessList.Add(FindValues(subkeys[i]));
-                        }
-                        else
-                        {
-                            guessList.AddRange(LectureReg(subkeys[i], softList));
-                        }
-                        myRegKey = temp;
+                        guessList.AddRange(LectureReg(subkeys[i], softList));
                     }
+                    myRegKey = temp;
                 }
                 return (guessList);
             }
-            catch (NullReferenceException err)
+            catch (SecurityException se)
             {
-                Console.WriteLine(err);
+                Console.WriteLine("\t\t Impossible to access : " + regPath);
                 return(guessList);
             }
         }
@@ -143,7 +121,7 @@ namespace ListingSoftware
             RegGuess current = new RegGuess(regPath);
             try
             {
-                RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, regPath); //SOFTWAREMicrosoftWindows NTCurrentVersion
+                RegistryPermission regPermission = new RegistryPermission(RegistryPermissionAccess.AllAccess, regPath); 
                 regPermission.Demand();
             }
             catch (Exception e)
