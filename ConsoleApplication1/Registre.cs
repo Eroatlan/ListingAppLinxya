@@ -46,7 +46,7 @@ namespace ListingSoftware
 
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                    Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                    Console.WriteLine(subkeys[i]);
                         if (softList.Contains(subkeys[i]))
                         {
                             guessList.Add(FindValues(subkeys[i]));
@@ -63,7 +63,7 @@ namespace ListingSoftware
             }
             catch (SecurityException se)
             {
-                Console.WriteLine("\t\t Impossible to access SOFTWARE.");
+                Console.WriteLine("\t Impossible to access SOFTWARE.");
                 return (guessList);
             }
         }
@@ -98,7 +98,7 @@ namespace ListingSoftware
                 {
                     if (softList.Contains(subkeys[i]))
                     {
-                        Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                        Console.WriteLine(subkeys[i]);
                         guessList.Add(FindValues(subkeys[i]));
                     }
                     else
@@ -111,7 +111,7 @@ namespace ListingSoftware
             }
             catch (SecurityException se)
             {
-                Console.WriteLine("\t\t Impossible to access : " + regPath);
+                Console.WriteLine("\t Impossible to access : " + regPath);
                 return(guessList);
             }
         }
