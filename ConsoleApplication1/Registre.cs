@@ -46,7 +46,7 @@ namespace ListingSoftware
 
                 for (int i = 0; i < subkeys.Length; i++)
                 {
-                    Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                    Console.WriteLine(subkeys[i]);
                         if (softList.Contains(subkeys[i]))
                         {
                             guessList.Add(FindValues(subkeys[i]));
@@ -63,7 +63,7 @@ namespace ListingSoftware
             }
             catch (SecurityException se)
             {
-                Console.WriteLine("\t\t Impossible to access SOFTWARE.");
+                Console.WriteLine("\t Impossible to access SOFTWARE.");
                 return (guessList);
             }
         }
@@ -102,7 +102,7 @@ namespace ListingSoftware
                     //Condition a modifier pour une meilleure reconnaissance des logiciels
                     if (softList.Contains(subkeys[i]))
                     {
-                        Console.WriteLine((i + 1) + " - " + subkeys[i]);
+                        Console.WriteLine(subkeys[i]);
                         guessList.Add(FindValues(subkeys[i]));
                     }
                     else
@@ -115,7 +115,7 @@ namespace ListingSoftware
             }
             catch (SecurityException se)
             {
-                Console.WriteLine("\t\t Impossible to access : " + regPath);
+                Console.WriteLine("\t Impossible to access : " + regPath);
                 return(guessList);
             }
         }
@@ -190,18 +190,6 @@ namespace ListingSoftware
 
             return (foundValues);
         }
-
-        /*
-         * Code d'exemple
-                //lire les valeurs d'un chemin particulier - Recover Keys
-                regK = myRegKey.OpenSubKey("Recover Keys");
-                Console.WriteLine(regK);
-                subkeys = regK.GetValueNames();
-
-                for (int i = 0; i < subkeys.Length; i++)
-                {
-                    Console.WriteLine((i + 1) + " - " + subkeys[i] + " - " + regK.GetValue(subkeys[i]));
-                }*/
     
         //Permet de lire précisément une valeur dans un chemin déterminé. Utilisé dans le premier parcours.
         public String readValue(PathValue p) 
