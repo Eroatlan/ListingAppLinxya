@@ -108,6 +108,7 @@ namespace ListingSoftware
             {
                 foreach (WeightedKey k in Comp.regGuessTest(guess))
                 {
+                    //Vérifier si cette ligne marche toujours avec la nouvelle méthode ( je pense que le pb vient d'ici... )
                     Software r = this.getSoftByName(guess.getName());
                     if (!(r==null))
                     {

@@ -72,7 +72,7 @@ namespace ListingSoftware
                 ret = "Entry ==> Name : " + this.name + " - Vendor : " + this.vendor + " - Keys : " + sKeys;
                 return ret;
             }
-            else return null;
+            else return "noKey";
         }
         //Méthode qui sert lors de la vérification de si on insère ou non une clé
         public bool IsCompleted()

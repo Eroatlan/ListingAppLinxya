@@ -18,7 +18,6 @@ namespace ListingSoftware
 
         static void Main(string[] args)
         {
-            MainForm form = new MainForm();
             
 
             Console.WriteLine(Comp.compTest());
