@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace ListingSoftware
 {
@@ -18,8 +19,6 @@ namespace ListingSoftware
 
         static void Main(string[] args)
         {
-            MainForm form = new MainForm();
-            
 
             Console.WriteLine(Comp.compTest());
             Ways wat = new Ways();
@@ -65,8 +64,18 @@ namespace ListingSoftware
             }
       
             softList.secondTurn();
+
+            //Code pour lancer la fenetre graphique, le contenu de ce main devra se trouver dans celui de la fenetre
+            /*Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            MainForm fen = new MainForm();
+            Application.Run(fen);
+            //Thread th = new Thread(new ThreadStart(Application.Run));
+            //th.Start(fen);*/
+
             foreach (Software s in softList.getList())
             {
+                //fen.AddToListBoxSoftwares(s.toStringKey());
                 Console.WriteLine(s.toStringKey());
             }
             
