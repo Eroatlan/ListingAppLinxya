@@ -71,6 +71,9 @@ namespace ListingSoftware
         //Fonction surchargée de lecture de registre, lit jusqu'à trouver un noeud correspondant à un programme
         public List<RegGuess> LectureReg(String regPath, List<String> softList)
         {
+            //On crée la liste des mots clés qui doivent être reconnus. La liste des noms seule ne suffit pas car 
+            List<String> f = Comp.SplitStringList(softList);
+            f = Comp.lSort(f);
             List<RegGuess> guessList = new List<RegGuess>();
             RegistryKey temp = myRegKey;
             try
@@ -93,9 +96,10 @@ namespace ListingSoftware
 
                 String[] subkeys = myRegKey.GetSubKeyNames();
                 String[] values = myRegKey.GetValueNames();
-
+                //Boucle qui permet la reconnaissance dess noms de logiciels
                 for (int i = 0; i < subkeys.Length; i++)
                 {
+                    //Condition a modifier pour une meilleure reconnaissance des logiciels
                     if (softList.Contains(subkeys[i]))
                     {
                         Console.WriteLine(subkeys[i]);

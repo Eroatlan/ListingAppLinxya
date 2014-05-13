@@ -187,6 +187,46 @@ namespace ListingSoftware
             return prob;
         }
 
+        //Méthode qui crée les noms décomposés des logiciels
+        public static List<String> SplitStringList(List<String> ls)
+        {
+            List<String> back= new List<string>();
+            foreach (String s1 in ls)
+            {
+                foreach (String s2 in s1.Split(' '))
+                {
+                    back.Add (s2);
+                }
+            }
+            return back;
+        }
+
+
+        //Méthode de tri des String a comparer
+        public static List<String> lSort(List<String> l)
+        {
+            List<String> k = new List<String>();
+            l.Sort();
+            foreach(String b in l.Distinct())
+            {
+                k.Add(b);
+            }
+            Regex r = new Regex("[a-zA-Z]");
+            List<String> toRem = new List<string>();
+            foreach(String z in k)
+            {
+
+                if (z.Length < 4 || z.StartsWith("(") || !r.Match(z).Success )
+                {
+                    toRem.Add(z);
+                }
+            }
+            foreach (String o in toRem)
+            {
+                k.Remove(o);
+            }
+            return k;
+        }
         //Méthode utilisée pour l'essai de la classe globale. Renvoie le nombre d'erreurs (+de 10% d'erreurs) sur une liste de test
         public static double compTest()
         {

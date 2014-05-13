@@ -109,15 +109,19 @@ namespace ListingSoftware
                 foreach (WeightedKey k in Comp.regGuessTest(guess))
                 {
                     Software r = this.getSoftByName(guess.getName());
-                    //Si on n'a  pas déjà trouvé une clé avec 100% de chance
-                    if (!r.IsCompleted())
+                    if (!(r==null))
                     {
-                        //Si cette méthode a trouvé une clé avec pour valeur 100, on supprime les anciennes.
-                        if (k.getWeight() == 100) 
+
+                        //Si on n'a  pas déjà trouvé une clé avec 100% de chance
+                        if (!r.IsCompleted())
                         {
-                            r.ResetKeys();
+                            //Si cette méthode a trouvé une clé avec pour valeur 100, on supprime les anciennes.
+                            if (k.getWeight() == 100) 
+                            {
+                                r.ResetKeys();
+                            }
+                            r.addKey(k);
                         }
-                        r.addKey(k);
                     }
                 }
             }
